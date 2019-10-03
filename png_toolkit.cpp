@@ -35,7 +35,10 @@ image_data png_toolkit::getPixelData(void) const
 
 void png_toolkit::redFilter()
 {
-	for (int i = 0; i < (imgData.h / 2) * imgData.w * imgData.compPerPixel; i++) {
+	int from = (imgData.h / 2) * imgData.w * imgData.compPerPixel;
+	int to = (imgData.h) * imgData.w * imgData.compPerPixel;
+
+	for (int i = from; i < to; i++) {
 		if (i % 4 == 0) imgData.pixels[i] = (char)255;
 		else if (i % 4 == 1 || i % 4 == 2) imgData.pixels[i] = (char)0;
 		else imgData.pixels[i] = 255;
