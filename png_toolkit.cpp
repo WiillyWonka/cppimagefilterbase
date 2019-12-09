@@ -1,6 +1,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include <array>
+#include <sstream> 
 #include "stb_image_write.h"
 #include "png_toolkit.h"
 
@@ -33,14 +34,19 @@ image_data png_toolkit::getPixelData(void) const
 	return imgData;
 }
 
-void png_toolkit::redFilter()
-{
-	int from = (imgData.h / 2) * imgData.w * imgData.compPerPixel;
-	int to = (imgData.h) * imgData.w * imgData.compPerPixel;
+void png_toolkit::fillFilters(vector<vector<string>> in) {
+	filter.reserve(in.size());
+	for (const vector<string>& str : in) {
+		if (str[0] == "Red") filter.push_back(new Red(imgData, stoi(str[1]), stoi(str[2]), stoi(str[3]), stoi(str[4])));
+		if (str[0] == "Edge") filter.push_back(new Edge(imgData, stoi(str[1]), stoi(str[2]), stoi(str[3]), stoi(str[4])));
+		if (str[0] == "Blur") filter.push_back(new Blur(imgData, stoi(str[1]), stoi(str[2]), stoi(str[3]), stoi(str[4])));
+		if (str[0] == "Treshold") filter.push_back(new Treshold(imgData, stoi(str[1]), stoi(str[2]), stoi(str[3]), stoi(str[4])));
+	}
+}
 
-	for (int i = from; i < to; i++) {
-		if (i % 4 == 0) imgData.pixels[i] = (char)255;
-		else if (i % 4 == 1 || i % 4 == 2) imgData.pixels[i] = (char)0;
-		else imgData.pixels[i] = 255;
+void png_toolkit::applyFilters() {
+	for (Filter* inst : filter) {
+		inst->apply();
+		cout << "done" << endl;
 	}
 }
