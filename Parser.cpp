@@ -5,7 +5,7 @@ vector<vector<string>> Parser::parse(string path) {
 	string delimiter = " ";
 	vector<vector<string>> out;
 
-	ifstream in("config.txt"); // окрываем файл для чтения
+	ifstream in(path);
 	if (in.is_open())
 	{
 		while (getline(in, line))
