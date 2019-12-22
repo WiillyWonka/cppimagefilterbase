@@ -191,6 +191,13 @@ void BlackWhite::apply() {
 	}
 }
 
+inline int Edge::clamp(int i)
+{
+	if (i > 255) return 255;
+	if (i < 0) return 0;
+	else return i;
+}
+
 Edge::Edge(image_data& imgData, int up, int left, int down, int right)
 	: KerFilter(imgData, up, left, down, right), bwFilter(imgData, up, left, down, right)
 {
@@ -208,9 +215,9 @@ void Edge::apply() {
 	for (int x = x0, j = 0; x < x1; x++, j += imgData.compPerPixel) {
 		for (int y = y0; y < y1; y++, j += imgData.compPerPixel) {
 			index = (x + y * imgData.w);
-			buf[j] = (char)ker.apply(getMatrix(index, RED));
-			buf[j + 1] = (char)ker.apply(getMatrix(index, GREEN));
-			buf[j + 2] = (char)ker.apply(getMatrix(index, BLUE));
+			buf[j] = (char)clamp(ker.apply(getMatrix(index, RED)));
+			buf[j + 1] = (char)clamp(ker.apply(getMatrix(index, GREEN)));
+			buf[j + 2] = (char)clamp(ker.apply(getMatrix(index, BLUE)));
 		}
 	}
 

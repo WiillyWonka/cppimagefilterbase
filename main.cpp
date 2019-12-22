@@ -9,8 +9,10 @@ int main(int argc, char* argv[])
 	// toolkit near test images!
 	try
 	{
-		if (argc != 4)
-			throw "Not enough arguments";
+		if (argc != 4) {
+			std::cout << "Not enough arguments" << std::endl;
+			return 0;
+		}
 
 		png_toolkit studTool;
 		studTool.load(argv[2]);

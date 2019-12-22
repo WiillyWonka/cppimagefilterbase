@@ -51,6 +51,7 @@ class Edge : public KerFilter {
 private:
 	Kernel ker;
 	BlackWhite bwFilter;
+	int clamp(int);
 public:
 	Edge(image_data& imgData, int up, int left, int down, int right);
 	void apply();
