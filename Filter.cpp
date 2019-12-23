@@ -244,11 +244,7 @@ vector<int> Treshold::getIntensityVector(int center) {
 				currX = centerX + biasX;
 				currY = centerY + biasY;
 				index = ((currY) * imgData.w + currX) * imgData.compPerPixel;
-				red = imgData.pixels[index];
-				green = imgData.pixels[index + 1];
-				blue = imgData.pixels[index + 2];
-				I = (3 * red + 6 * green + blue) / 10;
-				intensityVector.push_back(I);
+				intensityVector.push_back(imgData.pixels[index]);
 			}
 		}
 	}
@@ -271,18 +267,13 @@ void Treshold::apply() {
 			index = (x + y * imgData.w);
 			intensityVector = getIntensityVector(index);
 
-			red = imgData.pixels[index * imgData.compPerPixel];
-			green = imgData.pixels[index * imgData.compPerPixel + 1];
-			blue = imgData.pixels[index * imgData.compPerPixel + 2];
-			I = (3 * red + 6 * green + blue) / 10;
-
 			sort(intensityVector.begin(), intensityVector.end());
 
 			mediana = intensityVector.size() / 2;
-			if (I < intensityVector[mediana - 1]) {
-				buf[j] = 0;
-				buf[j + 1] = 0;
-				buf[j + 2] = 0;
+			if (imgData.pixels[index * imgData.compPerPixel] < intensityVector[mediana]) {
+				buf[j] = (char)0;
+				buf[j + 1] = (char)0;
+				buf[j + 2] = (char)0;
 			}
 			else {
 				buf[j] = imgData.pixels[index*imgData.compPerPixel];
