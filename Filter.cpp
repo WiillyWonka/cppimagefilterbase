@@ -16,7 +16,7 @@ Filter::Filter(image_data& imgData, int up, int left, int down, int right) : img
 }
 
 bool Filter::checkBounds(int x, int y) {
-	if (x < x0 || x >= x1 || y < y0 || y >= y1) return false;
+	if (x <= x0 || x >= x1 || y <= y0 || y >= y1) return false;
 	return true;
 }
 

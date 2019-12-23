@@ -15,9 +15,9 @@ class Filter {
 protected:
 	image_data& imgData;
 	int from, to, x0, x1, y0, y1;
+	bool checkBounds(int x, int y);
 public:
 	Filter(image_data& imgData, int up, int left, int down, int right);
-	bool checkBounds(int x, int y);
 	virtual void apply() = 0;
 };
 
