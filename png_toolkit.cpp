@@ -34,13 +34,25 @@ image_data png_toolkit::getPixelData(void) const
 	return imgData;
 }
 
-void png_toolkit::fillFilters(vector<vector<string>> in) {
+void png_toolkit::fillFilters(vector<pair<string, vector<int>>> in) {
 	filter.reserve(in.size());
-	for (const vector<string>& str : in) {
-		if (str[0] == "Red") filter.push_back(new Red(imgData, stoi(str[1]), stoi(str[2]), stoi(str[3]), stoi(str[4])));
-		if (str[0] == "Edge") filter.push_back(new Edge(imgData, stoi(str[1]), stoi(str[2]), stoi(str[3]), stoi(str[4])));
-		if (str[0] == "Blur") filter.push_back(new Blur(imgData, stoi(str[1]), stoi(str[2]), stoi(str[3]), stoi(str[4])));
-		if (str[0] == "Treshold") filter.push_back(new Treshold(imgData, stoi(str[1]), stoi(str[2]), stoi(str[3]), stoi(str[4])));
+	for (const pair<string, vector<int>>& filter_args : in) {
+		if (filter_args.first == "Red") {
+			vector<int> border = filter_args.second;
+			filter.push_back(new Red(imgData, border[0], border[1], border[2], border[3]));
+		}
+		if (filter_args.first == "Edge") {
+			vector<int> border = filter_args.second;
+			filter.push_back(new Edge(imgData, border[0], border[1], border[2], border[3]));
+		}
+		if (filter_args.first == "Blur") {
+			vector<int> border = filter_args.second;
+			filter.push_back(new Blur(imgData, border[0], border[1], border[2], border[3]));
+		}
+		if (filter_args.first == "Treshold") {
+			vector<int> border = filter_args.second;
+			filter.push_back(new Treshold(imgData, border[0], border[1], border[2], border[3]));
+		}
 	}
 }
 

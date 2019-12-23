@@ -8,7 +8,7 @@ using namespace std;
 
 class Parser {
 public:
-	static vector<vector<string>> parse(string path);
+	static vector<pair<string, vector<int>>> parse(string path);
 };
 
 #endif

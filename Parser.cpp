@@ -1,6 +1,33 @@
 #include "Parser.h"
 
-vector<vector<string>> Parser::parse(string path) {
+vector<pair<string, vector<int>>> Parser::parse(string path) {
+	std::ifstream f(path);
+	vector<pair<string, vector<int>>> out;
+	if (!f.is_open()) {
+		return out;
+	}
+
+	while (!f.eof()) {
+		std::string filterName;
+		std::vector<int> borders;
+
+		try {
+			f >> filterName;
+
+			int num;
+			for (int i = 0; i < 4; i++) {
+				f >> num;
+				borders.push_back(num);
+			}
+			out.push_back(std::pair<std::string, std::vector<int>>(filterName, borders));
+		}
+		catch (...) {
+			break;
+		}
+	}
+	f.close();
+	return out;
+	/*
 	string line, token;
 	string delimiter = " ";
 	vector<vector<string>> out;
@@ -22,5 +49,5 @@ vector<vector<string>> Parser::parse(string path) {
 		}
 	}
 	in.close();
-	return out;
+	return out;*/
 }

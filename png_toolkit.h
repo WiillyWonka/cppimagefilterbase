@@ -25,7 +25,7 @@ public:
 	bool load(std::string const& pictureName);
 	bool save(std::string const& pictureName);
 	image_data getPixelData(void) const;
-	void fillFilters(vector<vector<string>>);
+	void fillFilters(vector<pair<string, vector<int>>>);
 	void applyFilters();
 
 private:
