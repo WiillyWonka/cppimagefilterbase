@@ -14,7 +14,7 @@ enum Color {
 class Filter {
 protected:
 	image_data& imgData;
-	int from, to, x0, x1, y0, y1;
+	int x0, x1, y0, y1;
 	bool checkBounds(int x, int y);
 public:
 	Filter(image_data& imgData, int up, int left, int down, int right);
@@ -60,7 +60,7 @@ public:
 class Treshold : public Filter {
 private:
 	BlackWhite bwFilter;
-	unsigned char getIntensityVector(int center);
+	unsigned char getMediana(int center);
 public:
 	Treshold(image_data& imgData, int up, int left, int down, int right);
 	void apply();

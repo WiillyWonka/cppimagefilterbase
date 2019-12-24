@@ -157,7 +157,7 @@ void Edge::apply() {
 	}
 }
 
-unsigned char Treshold::getIntensityVector(int center) {
+unsigned char Treshold::getMediana(int center) {
 	vector<unsigned char> intensityVector;
 
 	int centerX = center % imgData.w; //current coords
@@ -185,16 +185,16 @@ void Treshold::apply() {
 	bwFilter.apply();
 
 	int I, red, green, blue, index;
-	unsigned char mediana;
 	int bufSize = (y1 - y0) * (x1 - x0) * imgData.compPerPixel;
-	vector<unsigned char> buf(bufSize);
+	unsigned char* buf = new unsigned char[bufSize];
+	/*vector<unsigned char> buf;
+	buf.reserve(bufSize);*/
 
 	for (int x = x0, j = 0; x < x1; x++) {
 		for (int y = y0; y < y1; y++, j += imgData.compPerPixel) {
 			index = (x + y * imgData.w);
-			mediana = getIntensityVector(index);
 
-			if (imgData.pixels[index * imgData.compPerPixel] < mediana) {
+			if (imgData.pixels[index * imgData.compPerPixel] < getMediana(index)) {
 				buf[j] = (unsigned char)0;
 				buf[j + 1] = (unsigned char)0;
 				buf[j + 2] = (unsigned char)0;
