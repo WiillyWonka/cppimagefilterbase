@@ -262,7 +262,7 @@ void Treshold::apply() {
 	vector<unsigned char> buf(bufSize);
 	vector<unsigned char> intensityVector;
 
-	for (int x = x0, j = 0; x < x1; x++, j += imgData.compPerPixel) {
+	for (int x = x0, j = 0; x < x1; x++) {
 		for (int y = y0; y < y1; y++, j += imgData.compPerPixel) {
 			index = (x + y * imgData.w);
 			intensityVector = getIntensityVector(index);
@@ -283,7 +283,7 @@ void Treshold::apply() {
 		}
 	}
 
-	for (int x = x0, j = 0; x < x1; x++, j += imgData.compPerPixel) {
+	for (int x = x0, j = 0; x < x1; x++) {
 		for (int y = y0; y < y1; y++, j += imgData.compPerPixel) {
 			index = (x + y * imgData.w) * imgData.compPerPixel;
 			imgData.pixels[index] = buf[j];
