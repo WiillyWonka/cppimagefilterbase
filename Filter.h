@@ -60,7 +60,7 @@ public:
 class Treshold : public Filter {
 private:
 	BlackWhite bwFilter;
-	vector<unsigned char> getIntensityVector(int center);
+	unsigned char getIntensityVector(int center);
 public:
 	Treshold(image_data& imgData, int up, int left, int down, int right);
 	void apply();
