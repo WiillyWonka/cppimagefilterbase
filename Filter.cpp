@@ -231,8 +231,8 @@ void Edge::apply() {
 	}
 }
 
-vector<char> Treshold::getIntensityVector(int center) {
-	vector<char> intensityVector;
+vector<unsigned char> Treshold::getIntensityVector(int center) {
+	vector<unsigned char> intensityVector;
 
 	int centerX = center % imgData.w; //current coords
 	int centerY = center / imgData.w;
@@ -259,8 +259,8 @@ void Treshold::apply() {
 
 	int I, red, green, blue, mediana, index;
 	int bufSize = (y1 - y0 + 1) * (x1 - x0 + 1) * imgData.compPerPixel;
-	vector<char> buf(bufSize);
-	vector<char> intensityVector;
+	vector<unsigned char> buf(bufSize);
+	vector<unsigned char> intensityVector;
 
 	for (int x = x0, j = 0; x < x1; x++, j += imgData.compPerPixel) {
 		for (int y = y0; y < y1; y++, j += imgData.compPerPixel) {
@@ -271,9 +271,9 @@ void Treshold::apply() {
 
 			mediana = intensityVector.size() / 2;
 			if (imgData.pixels[index * imgData.compPerPixel] < intensityVector[mediana]) {
-				buf[j] = (char)0;
-				buf[j + 1] = (char)0;
-				buf[j + 2] = (char)0;
+				buf[j] = (unsigned char)0;
+				buf[j + 1] = (unsigned char)0;
+				buf[j + 2] = (unsigned char)0;
 			}
 			else {
 				buf[j] = imgData.pixels[index*imgData.compPerPixel];
