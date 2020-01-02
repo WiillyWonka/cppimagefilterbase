@@ -49,7 +49,7 @@ void png_toolkit::fillFilters(vector<pair<string, vector<int>>> in) {
 			vector<int> border = filter_args.second;
 			filter.push_back(new Blur(imgData, border[0], border[1], border[2], border[3]));
 		}
-		if (filter_args.first == "Treshold") {
+		if (filter_args.first == "Threshold") {
 			vector<int> border = filter_args.second;
 			filter.push_back(new Treshold(imgData, border[0], border[1], border[2], border[3]));
 		}
