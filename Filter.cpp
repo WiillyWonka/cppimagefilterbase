@@ -215,4 +215,6 @@ void Treshold::apply() {
 			imgData.pixels[index + 2] = buf[j + 2];
 		}
 	}
+
+	delete buf;
 }

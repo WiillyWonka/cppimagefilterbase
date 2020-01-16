@@ -7,6 +7,8 @@
 
 png_toolkit::png_toolkit()
 {
+	for (vector<Filter*>::iterator it = filter.begin(); it != filter.end(); it++)
+		delete (*it);
 }
 
 png_toolkit::~png_toolkit()
